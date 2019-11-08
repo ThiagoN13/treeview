@@ -34,6 +34,13 @@ namespace ItemsApi
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            services.AddCors(options => {
+                options.AddPolicy("AllowAll", builder => {
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                });
+            });
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -43,6 +50,7 @@ namespace ItemsApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("AllowAll");
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
