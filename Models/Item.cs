@@ -12,9 +12,10 @@ namespace ItemsApi.Models
 
         public Item(string Name, IList<Item> Children = null) : this()
         {
-            this.Name = Name;           
+            this.Name = Name;
             this.Children = Children; 
         }
+
         public Guid Id { get; set; }
         public string Name { get; set; }
         public IList<Item> Children { get; set; }

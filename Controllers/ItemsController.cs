@@ -13,12 +13,12 @@ namespace ItemsApi.Controllers
 
         /// <summary>
         /// Lists all items.
-        /// </summary>       
-        /// <returns></returns>   
+        /// </summary>
+        /// <returns></returns>
         /// <response code="200">Returns all items</response>
         [HttpGet]
         public IEnumerable<Item> Get()
-        {            
+        {
             return Items;
         }
 
@@ -35,7 +35,7 @@ namespace ItemsApi.Controllers
         /// }
         ///
         /// </remarks>
-        /// <param name="item"></param>        
+        /// <param name="item"></param>
         /// <returns></returns>
         /// <response code="204">Returns no content</response>
         [HttpPost()]
@@ -58,13 +58,16 @@ namespace ItemsApi.Controllers
         /// }
         ///
         /// </remarks>
-        /// <param name="item"></param>        
+        /// <param name="item"></param>
         /// <returns></returns>
         /// <response code="204">Returns no content</response>
         [HttpPatch("{id}")]
         public IActionResult Put(Item item)
         {
-            // TODO
+            var data = Items.Find(i => i.Id == item.Id);
+            var index = Items.IndexOf(data);
+            Items[index] = item;
+
             return NoContent();
         }
 
@@ -75,13 +78,16 @@ namespace ItemsApi.Controllers
         /// Sample request:
         ///
         /// DELETE /Item/afb934f4-5551-4457-81ff-74073502d124
-        /// </remarks>        
+        /// </remarks>
         /// <returns></returns>
         /// <response code="204">Returns no content</response>
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            // TODO
+            var data = Items.Find(item => item.Id == id);
+
+            Items.Remove(data);
+
             return NoContent();
         }
     }
